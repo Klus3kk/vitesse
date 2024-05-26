@@ -1,2 +1,2 @@
-# Mini-Processor
-WORK IN PROGRESS
+# Simple-16-bit-RISC-processor
+Welcome to the repository for my 16-bit RISC processor project, designed and implemented using VHDL for FPGA deployment. This project aims to create a simple yet functional RISC architecture processor, featuring a basic set of arithmetic, logical, and control instructions. The processor is simulated using ModelSim and synthesized for an FPGA board using Quartus II/Vivado.
