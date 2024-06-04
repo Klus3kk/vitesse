@@ -1,2 +1,10 @@
 # Simple-16-bit-RISC-processor
-Welcome to the repository for my 16-bit RISC processor project, designed and implemented using VHDL for FPGA deployment. This project aims to create a simple yet functional RISC architecture processor, featuring a basic set of arithmetic, logical, and control instructions. The processor is simulated using ModelSim and synthesized for an FPGA board using Quartus II/Vivado.
+A hardware project implementing a 16-bit RISC processor. The goal is to understand the fundamentals of processor operation at the gate level and gain experience in digital hardware design.
+## Features:
+* Implementation of a basic RISC instruction set (e.g., arithmetic, logical, bitwise shifts, jumps).
+* Interrupt handling.
+* Extensibility for additional instructions (e.g., floating-point, SIMD).
+## Technologies: 
+* Verilog/VHDL,
+* FPGA, logic simulators.
+**Status: In progress.**
