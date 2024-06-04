@@ -7,4 +7,5 @@ A hardware project implementing a 16-bit RISC processor. The goal is to understa
 ## Technologies: 
 * Verilog/VHDL,
 * FPGA, logic simulators.
+
 **Status: In progress.**
