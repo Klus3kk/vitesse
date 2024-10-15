@@ -1,5 +1,5 @@
-# Simple-16-bit-RISC-processor
-This project implements a basic 16-bit RISC (Reduced Instruction Set Computer) processor using VHDL (VHSIC Hardware Description Language). Designed for simplicity and educational purposes, this processor executes essential arithmetic and logical operations.
+# Vitesse
+This project implements a basic 16-bit RISC (Reduced Instruction Set Computer) processor named **Vitesse** using VHDL (VHSIC Hardware Description Language). Designed for simplicity and educational purposes, this processor executes essential arithmetic and logical operations.
 ## Features:
 * 16-bit ALU (Arithmetic Logic Unit): Performs basic arithmetic operations (addition, subtraction) and logical operations (AND, OR, NOT).
 * Simple Instruction Set Architecture (ISA): Comprises a minimal set of instructions focusing on arithmetic, logic, and data movement.
