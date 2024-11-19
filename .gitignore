@@ -1,0 +1,22 @@
+# Ignore build artifacts
+build/
+*.o
+*.vcd
+*.cf
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore editor-specific files
+*.swp
+*.bak
+*.tmp
+.idea/
+.vscode/
+
+# Ignore logs
+*.log
+
+# Temporary files
+*~
