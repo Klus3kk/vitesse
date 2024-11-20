@@ -57,13 +57,13 @@ begin
         -- report "SUB: A = 2, B = 1, Op = " & to_string(Op);
         -- wait for 10 ns;
 
-        -- -- TEST 3: NOT OPERATION
-        -- A <= "1111111111111111"; 
-        -- B <= "0000000000000000"; 
-        -- Op <= "100"; -- NOT
-        -- wait for 1 ns; -- Ensure Op is applied
-        -- report "NOT: A = -1, B = 0, Op = " & to_string(Op);
-        -- wait for 10 ns;
+        -- TEST 3: NOT OPERATION
+        A <= "1111111111111111"; 
+        B <= "0000000000000000"; 
+        Op <= "100"; -- NOT
+        wait for 1 ns; -- Ensure Op is applied
+        report "NOT: A = -1, B = 0, Op = " & to_string(Op);
+        wait for 10 ns;
 
         -- END TESTBENCH
         wait;
