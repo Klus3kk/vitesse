@@ -78,58 +78,44 @@ begin
     -- TEST CASES
     process
     begin
+        report "---------------------------";
+        report "TEST START: CPU EXECUTION";
+        report "---------------------------";
+
         -- RESET CPU
         rst <= '1';
         wait for 10 ns;
         rst <= '0';
 
-        report "---------------------------";
-        report "TEST START: CPU EXECUTION";
-        report "---------------------------";
-
-        -- LOAD INSTRUCTIONS INTO MEMORY
+        -- Load Instructions into Memory
         mem_write_enable <= '1';
+
+        report "Loading Instructions into Memory...";
         
-        -- Instruction 1: LOAD R1, #10
-        mem_address <= "0000000000000000"; -- Memory address 0
-        mem_data <= "0000000100001010"; -- Opcode for LOAD R1, 10
-        wait for 10 ns;
+        mem_address <= "0000000000000000"; mem_data <= "0000000100001010"; wait for 10 ns; -- LOAD R1, #10
+        mem_address <= "0000000000000001"; mem_data <= "0000001000000101"; wait for 10 ns; -- LOAD R2, #5
+        mem_address <= "0000000000000010"; mem_data <= "0001001100000000"; wait for 10 ns; -- ADD R3 = R1 + R2
+        mem_address <= "0000000000000011"; mem_data <= "0010001100000101"; wait for 10 ns; -- STORE R3 -> Mem[5]
 
-        -- Instruction 2: LOAD R2, #5
-        mem_address <= "0000000000000001"; -- Memory address 1
-        mem_data <= "0000001000000101"; -- Opcode for LOAD R2, 5
-        wait for 10 ns;
+        mem_write_enable <= '0';
 
-        -- Instruction 3: ADD R3, R1, R2 (R3 = R1 + R2)
-        mem_address <= "0000000000000010"; -- Memory address 2
-        mem_data <= "0001001100000000"; -- Opcode for ADD R3 = R1 + R2
-        wait for 10 ns;
-
-        -- Instruction 4: STORE R3 to Memory[5]
-        mem_address <= "0000000000000011"; -- Memory address 3
-        mem_data <= "0010001100000101"; -- Opcode for STORE R3 -> Mem[5]
-        wait for 10 ns;
-
-        mem_write_enable <= '0'; -- Disable writing
+        report "Instructions Loaded. Starting Execution.";
 
         -- LET THE CPU EXECUTE
-        wait for 200 ns;
-
-        -- DEBUG OUTPUTS TO VERIFY EXECUTION
-        report "Final Register Values:";
-        report "Register 1: " & integer'image(to_integer(unsigned(debug_reg1)));
-        report "Register 2: " & integer'image(to_integer(unsigned(debug_reg2)));
-        report "Register 3: " & integer'image(to_integer(unsigned(debug_reg3)));
-
-        -- CHECK PC VALUE (SHOULD INCREMENT CORRECTLY)
-        report "Final PC: " & integer'image(to_integer(unsigned(debug_pc)));
-
-        -- CHECK INSTRUCTION EXECUTION
-        report "Last Executed Instruction: " & integer'image(to_integer(unsigned(debug_inst)));
+        for i in 0 to 10 loop
+            wait until rising_edge(clk);
+            report "Cycle " & integer'image(i);
+            report "PC: " & integer'image(to_integer(unsigned(debug_pc)));
+            report "INST: " & integer'image(to_integer(unsigned(debug_inst)));
+            report "Register 1: " & integer'image(to_integer(unsigned(debug_reg1)));
+            report "Register 2: " & integer'image(to_integer(unsigned(debug_reg2)));
+            report "Register 3: " & integer'image(to_integer(unsigned(debug_reg3)));
+        end loop;
 
         report "---------------------------";
         report "TEST COMPLETE";
         report "---------------------------";
         wait;
     end process;
+
 end Behavioral;

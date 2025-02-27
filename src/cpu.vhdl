@@ -120,12 +120,12 @@ begin
 
     -- INSTRUCTION DECODER
     process (instruction)
-    begin
-        -- Extract fields
-        opcode   <= instruction(15 downto 12);
-        reg_dest <= instruction(11 downto 9);
-        reg_src1 <= instruction(8 downto 6);
-        reg_src2 <= instruction(5 downto 3);
+        begin
+            -- Extract fields
+            opcode   <= instruction(15 downto 12);
+            reg_dest <= instruction(11 downto 9);
+            reg_src1 <= instruction(8 downto 6);
+            reg_src2 <= instruction(5 downto 3);
 
         -- Default control signals
         reg_write <= '0';
@@ -133,47 +133,19 @@ begin
         jump_enable <= '0';
 
         case opcode is
-            -- ADD
-            when "0000" =>
-                reg_write <= '1';
-
-            -- SUB
-            when "0001" =>
-                reg_write <= '1';
-
-            -- AND
-            when "0010" =>
-                reg_write <= '1';
-
-            -- OR
-            when "0011" =>
-                reg_write <= '1';
-
-            -- NOT
-            when "0100" =>
-                reg_write <= '1';
-
-            -- LOAD
-            when "0101" =>
-                reg_write <= '1';
-
-            -- STORE
-            when "0110" =>
-                mem_write <= '1';
-
-            -- JUMP
-            when "0111" =>
-                jump_enable <= '1';
-
-            -- BEQ (Branch if Equal)
+            when "0000" => reg_write <= '1'; -- ADD
+            when "0001" => reg_write <= '1'; -- SUB
+            when "0010" => reg_write <= '1'; -- AND
+            when "0011" => reg_write <= '1'; -- OR
+            when "0100" => reg_write <= '1'; -- NOT
+            when "0101" => reg_write <= '1'; -- LOAD
+            when "0110" => mem_write <= '1'; -- STORE
+            when "0111" => jump_enable <= '1'; -- JUMP
             when "1000" =>
                 if zero_flag = '1' then
                     jump_enable <= '1';
                 end if;
-
-            -- DEFAULT (NOP)
-            when others =>
-                null;
+            when others => null; -- Default case (NOP)
         end case;
     end process;
 
