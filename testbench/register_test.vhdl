@@ -3,12 +3,12 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
--- TESTBENCH ENTITY
-entity register_file_test is
-end register_file_test;
+-- TESTBENCH ENTITY (Ensure this matches the GHDL command)
+entity register_test is
+end register_test;
 
 -- ARCHITECTURE (Testbench behavior)
-architecture Behavioral of register_file_test is
+architecture Behavioral of register_test is
     -- COMPONENT UNDER TEST
     component register_file
         Port (
