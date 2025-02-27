@@ -27,11 +27,11 @@ begin
 
         -- SELECT OPERATION BASED ON Op
         case Op is
-            when "000" => int_Result := int_A + int_B; -- Add
-            when "001" => int_Result := int_A - int_B; -- Subtract
-            when "010" => int_Result := int_A and int_B; -- AND (logical)
-            when "011" => int_Result := int_A or int_B; -- OR (logical)
-            when "100" => int_Result := not int_A; -- NOT (logical)
+            when "000" => int_Result := signed(A) + signed(B); -- Add
+            when "001" => int_Result := signed(A) - signed(B); -- Subtract
+            when "010" => int_Result := signed(A and B); -- AND (logical)
+            when "011" => int_Result := signed(A or B); -- OR (logical)
+            when "100" => int_Result := signed(not A); -- NOT (logical)
             when others => int_Result := (others => '0'); -- Default: Set to 0
         end case;
 

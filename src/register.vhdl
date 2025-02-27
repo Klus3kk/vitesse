@@ -21,12 +21,20 @@ end register_file;
 -- ARCHITECTURE (Behavior of the Register File)
 architecture Behavioral of register_file is
     type reg_array is array (0 to 7) of STD_LOGIC_VECTOR(15 downto 0); -- 8 registers
-    signal registers : reg_array := (others => (others => '0')); -- Initialize all to 0
+    signal registers : reg_array := (
+        0 => "0000000000000000",
+        1 => "0000000000000000",
+        2 => "0000000000000000",
+        3 => "0000000000000000",
+        4 => "0000000000000000",
+        5 => "0000000000000000",
+        6 => "0000000000000000",
+        7 => "0000000000000000"
+    );
 begin
     -- REGISTER READING (ASYNC)
     read_data1 <= registers(to_integer(unsigned(read_reg1)));
     read_data2 <= registers(to_integer(unsigned(read_reg2)));
-
     -- REGISTER WRITING (SYNC with CLOCK)
     process (clk)
     begin

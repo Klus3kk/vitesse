@@ -63,30 +63,49 @@ begin
         rst <= '1';
         wait for 10 ns;
         rst <= '0';
-
+        
         -- WRITE 42 TO REGISTER 2
-        write_reg <= "010";  -- Select register R2
-        write_data <= "0000000000101010";  -- Decimal 42
+        write_reg <= "010"; -- Select register R2
+        write_data <= "0000000000101010"; -- Decimal 42
         reg_write <= '1';
-        wait for 10 ns;
+        wait until rising_edge(clk); -- Wait for clock edge
         reg_write <= '0';
-
+        
         -- READ FROM REGISTER 2
-        read_reg1 <= "010";  -- Read from R2
-        wait for 10 ns;
-
+        read_reg1 <= "010"; -- Read from R2
+        wait for 5 ns; -- Allow time for read to complete
+        assert (read_data1 = "0000000000101010") report "Read from R2 failed!" severity error;
+        
         -- WRITE 99 TO REGISTER 4
-        write_reg <= "100";  -- Select register R4
-        write_data <= "0000000001100011";  -- Decimal 99
+        write_reg <= "100"; -- Select register R4
+        write_data <= "0000000001100011"; -- Decimal 99
         reg_write <= '1';
-        wait for 10 ns;
+        wait until rising_edge(clk); -- Wait for clock edge
         reg_write <= '0';
-
-        -- READ FROM REGISTER 4
-        read_reg2 <= "100";  -- Read from R4
-        wait for 10 ns;
-
-        -- END TEST
+        
+        -- READ FROM REGISTER 2 AND 4 SIMULTANEOUSLY
+        read_reg1 <= "010"; -- Read from R2
+        read_reg2 <= "100"; -- Read from R4
+        wait for 5 ns; -- Allow time for read to complete
+        assert (read_data1 = "0000000000101010") report "Read from R2 failed!" severity error;
+        assert (read_data2 = "0000000001100011") report "Read from R4 failed!" severity error;
+        
+        -- TEST REGISTER 0 (SHOULD ALWAYS BE 0)
+        read_reg1 <= "000"; -- Read from R0
+        wait for 5 ns;
+        assert (read_data1 = "0000000000000000") report "R0 is not zero!" severity error;
+        
+        -- TEST WRITE TO REGISTER 0 (SHOULD REMAIN 0)
+        write_reg <= "000"; -- Select register R0
+        write_data <= "1111111111111111"; -- Try to write all 1s
+        reg_write <= '1';
+        wait until rising_edge(clk);
+        reg_write <= '0';
+        read_reg1 <= "000"; -- Read from R0
+        wait for 5 ns;
+        assert (read_data1 = "0000000000000000") report "R0 was modified!" severity error;
+        
+        report "Register file test completed!";
         wait;
     end process;
 end Behavioral;
