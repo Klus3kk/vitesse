@@ -8,7 +8,7 @@ entity alu is
     Port (
         A      : in STD_LOGIC_VECTOR(15 downto 0); -- First input operand
         B      : in STD_LOGIC_VECTOR(15 downto 0); -- Second input operand
-        Op     : in STD_LOGIC_VECTOR(2 downto 0);  -- Selection of operation
+        Op     : in STD_LOGIC_VECTOR(3 downto 0);  -- Selection of operation (now 4 bits)
         Result : out STD_LOGIC_VECTOR(15 downto 0); -- Output result of operation
         Zero   : out STD_LOGIC -- Zero flag (set when Result is zero)
     );
@@ -25,13 +25,14 @@ begin
         int_A := signed(A);
         int_B := signed(B);
 
-        -- SELECT OPERATION BASED ON Op
+        -- SELECT OPERATION BASED ON Op (now supporting 4-bit opcodes)
         case Op is
-            when "000" => int_Result := signed(A) + signed(B); -- Add
-            when "001" => int_Result := signed(A) - signed(B); -- Subtract
-            when "010" => int_Result := signed(A and B); -- AND (logical)
-            when "011" => int_Result := signed(A or B); -- OR (logical)
-            when "100" => int_Result := signed(not A); -- NOT (logical)
+            when "0000" => int_Result := int_A + int_B; -- ADD
+            when "0001" => int_Result := int_A - int_B; -- SUB
+            when "0010" => int_Result := int_A and int_B; -- AND
+            when "0011" => int_Result := int_A or int_B; -- OR
+            when "0100" => int_Result := not int_A; -- NOT
+            when "0101" => int_Result := int_B; -- LOAD (Pass B as result)
             when others => int_Result := (others => '0'); -- Default: Set to 0
         end case;
 
